@@ -1,0 +1,18 @@
+Name:                icalendar
+Version:             0.1
+Synopsis:            Parse iCalendar format
+License:             BSD3
+License-file:        LICENSE
+Author:              Sam Stokes
+Maintainer:          me@samstokes.co.uk
+Category:            Text
+
+Build-type:          Simple
+Cabal-version:       >=1.2
+
+Library
+  Exposed-modules:     Text.Icalendar
+  Build-depends:       base
+                     , parsec >= 3.1.1
+                     , transformers >= 0.2.2.0
+  ghc-options: -Wall
