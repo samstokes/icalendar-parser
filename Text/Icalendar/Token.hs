@@ -21,11 +21,13 @@ instance Show Token where
   show (Other p s) = p ++ ":" ++ s
 
 
--- TODO return a source position too
-tokenP :: Parser Token
+tokenP :: Parser (SourcePos, Token)
 -- TODO support continued lines (beginning with ' ')
 -- TODO support escaped newlines ("\\n")
-tokenP = mkToken <$> (many (noneOf ":") <* char ':') <*> many (noneOf "\r") <* crlf
+tokenP = do
+  pos <- getPosition
+  tok <- mkToken <$> (many (noneOf ":") <* char ':') <*> many (noneOf "\r") <* crlf
+  return (pos, tok)
 
 
 crlf :: Parser String

@@ -14,7 +14,7 @@ import qualified Text.Icalendar.Token as T
 import Text.Icalendar.Types
 
 
-type Parser = Parsec [Token] ()
+type Parser = Parsec [(SourcePos, Token)] ()
 
 
 vcalendar :: Parser Vcalendar
@@ -23,7 +23,7 @@ vcalendar = comp2cal <$> component (Just "VCALENDAR")
         comp2cal (Component typ _ _) = error $ "Unexpected component type " ++ typ
 
 property :: Parser Property
-property = tok2prop <$> anyToken
+property = tok2prop . snd <$> anyToken
   where tok2prop (T.Other k v) = Property k v
         tok2prop t = error $ "Unexpected " ++ show t
 
@@ -38,8 +38,8 @@ component maybeType = do
 
 satisfy :: (Token -> Bool) -> String -> Parser Token
 satisfy f description = token show
-    (const $ initialPos "token")
-    (\t' -> if f t' then Just t' else Nothing)
+    fst
+    (\(_, t') -> if f t' then Just t' else Nothing)
   <?> description
 
 tokenP :: Token -> Parser Token
