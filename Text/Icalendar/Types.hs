@@ -14,6 +14,7 @@ data Vcalendar = Vcalendar {
 
 data Property = Property {
     propertyName :: String
+  , propertyParams :: [(String, String)]
   , propertyValue :: String
   } deriving (Show)
 

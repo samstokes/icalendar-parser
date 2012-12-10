@@ -24,7 +24,7 @@ vcalendar = comp2cal <$> component (Just "VCALENDAR")
 
 property :: Parser Property
 property = tok2prop . snd <$> anyToken
-  where tok2prop (T.Other k v) = Property k v
+  where tok2prop (T.Other k params v) = Property k params v
         tok2prop t = error $ "Unexpected " ++ show t
 
 component :: Maybe String -> Parser Component
