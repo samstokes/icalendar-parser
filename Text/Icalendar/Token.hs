@@ -16,7 +16,10 @@ data Token =
   deriving (Show)
 
 
+-- TODO return a source position too
 tokenP :: Parser Token
+-- TODO support continued lines (beginning with ' ')
+-- TODO support escaped newlines ("\\n")
 tokenP = mkToken <$> (many (noneOf ":") <* char ':') <*> many (noneOf "\r") <* crlf
 
 
