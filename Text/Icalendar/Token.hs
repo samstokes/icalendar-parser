@@ -13,7 +13,12 @@ data Token =
     Begin String
   | End String
   | Other String String
-  deriving (Eq, Show)
+  deriving (Eq)
+
+instance Show Token where
+  show (Begin s) = "BEGIN:" ++ s
+  show (End s) = "END:" ++ s
+  show (Other p s) = p ++ ":" ++ s
 
 
 -- TODO return a source position too
