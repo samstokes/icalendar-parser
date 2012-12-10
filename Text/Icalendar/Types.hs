@@ -2,6 +2,8 @@ module Text.Icalendar.Types (
     Vcalendar(..)
   , Property(..)
   , Component(..)
+  , isEvent
+  , vcalEvents
   ) where
 
 
@@ -20,3 +22,12 @@ data Component = Component {
   , componentProperties :: [Property]
   , componentSubcomponents :: [Component]
   } deriving (Show)
+
+
+isEvent :: Component -> Bool
+isEvent (Component "VEVENT" _ _) = True
+isEvent _ = False
+
+
+vcalEvents :: Vcalendar -> [Component]
+vcalEvents = filter isEvent . vcalComponents
