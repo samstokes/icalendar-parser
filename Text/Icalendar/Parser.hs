@@ -5,8 +5,10 @@ module Text.Icalendar.Parser (
 
 import Control.Applicative
 import Text.Parsec
+import Text.Parsec.Pos
 
-import Text.Icalendar.Token
+import Text.Icalendar.Token (Token)
+import qualified Text.Icalendar.Token as T
 import Text.Icalendar.Types
 
 
@@ -16,16 +18,15 @@ type Parser = Parsec [Token] ()
 vcalendar :: Parser Vcalendar
 vcalendar = begin "VCALENDAR" *> (Vcalendar <$> anyToken `manyTill` try (end "VCALENDAR"))
 
-begin :: String -> Parser Token
-begin s = do
-  object <- anyToken
-  case object of
-    Begin s' | s == s' -> return object
-    _ -> parserFail $ "expected BEGIN:" ++ s
 
-end :: String -> Parser Token
-end s = do
-  object <- anyToken
-  case object of
-    End s' | s == s' -> return object
-    _ -> parserFail $ "expected END:" ++ s ++ ", got " ++ show object
+tokenP :: Token -> Parser Token
+tokenP t = token show
+    (const $ initialPos "token")
+    (\t' -> if t == t' then Just t else Nothing)
+  <?> show t
+
+begin :: String -> Parser String
+begin s = tokenP (T.Begin s) >> return s
+
+end :: String -> Parser String
+end s = tokenP (T.End s) >> return s

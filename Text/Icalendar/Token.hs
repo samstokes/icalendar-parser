@@ -13,7 +13,7 @@ data Token =
     Begin String
   | End String
   | Other String String
-  deriving (Show)
+  deriving (Eq, Show)
 
 
 -- TODO return a source position too
