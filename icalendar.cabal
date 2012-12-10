@@ -12,6 +12,8 @@ Cabal-version:       >=1.2
 
 Library
   Exposed-modules:     Text.Icalendar
+                     , Text.Icalendar.Event
+                     , Text.Icalendar.Types
   Build-depends:       base
                      , old-locale >= 1.0.0.2
                      , parsec >= 3.1.1
