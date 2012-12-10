@@ -1,4 +1,7 @@
-module Text.Icalendar where
+module Text.Icalendar (
+    module Text.Icalendar.Types
+  , parser
+  ) where
 
 import Text.Parsec
 import qualified Text.Parsec.ByteString as PBS
