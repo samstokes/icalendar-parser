@@ -1,10 +1,15 @@
 module Text.Icalendar.Types (
     Vcalendar(..)
+  , Property(..)
+  , Component(..)
   ) where
 
 
-import Text.Icalendar.Token
+data Vcalendar = Vcalendar [Property] [Component]
+  deriving (Show)
 
+data Property = Property String String
+  deriving (Show)
 
-data Vcalendar = Vcalendar [Token]
+data Component = Component String [Property] [Component]
   deriving (Show)
