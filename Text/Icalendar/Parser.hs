@@ -49,12 +49,10 @@ begin :: String -> Parser String
 begin s = tokenP (T.Begin s) >> return s
 
 beginAny :: Parser String
-beginAny = liftM unBegin $ satisfy isBegin "BEGIN:"
+beginAny = liftM T.beginType $ satisfy isBegin "BEGIN:"
   where
     isBegin (T.Begin _) = True
     isBegin _ = False
-    unBegin (T.Begin s) = s
-    unBegin _ = error "Should never get here"
 
 end :: String -> Parser String
 end s = tokenP (T.End s) >> return s

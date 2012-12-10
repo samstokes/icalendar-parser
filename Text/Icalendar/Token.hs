@@ -10,9 +10,9 @@ import Text.Parsec.ByteString
 
 
 data Token =
-    Begin String
-  | End String
-  | Other String String
+    Begin { beginType :: String }
+  | End { endType :: String }
+  | Other { otherName :: String, otherValue :: String }
   deriving (Eq)
 
 instance Show Token where

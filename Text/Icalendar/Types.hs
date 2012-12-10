@@ -5,11 +5,18 @@ module Text.Icalendar.Types (
   ) where
 
 
-data Vcalendar = Vcalendar [Property] [Component]
-  deriving (Show)
+data Vcalendar = Vcalendar {
+    vcalProperties :: [Property]
+  , vcalComponents :: [Component]
+  } deriving (Show)
 
-data Property = Property String String
-  deriving (Show)
+data Property = Property {
+    propertyName :: String
+  , propertyValue :: String
+  } deriving (Show)
 
-data Component = Component String [Property] [Component]
-  deriving (Show)
+data Component = Component {
+    componentType :: String
+  , componentProperties :: [Property]
+  , componentSubcomponents :: [Component]
+  } deriving (Show)
