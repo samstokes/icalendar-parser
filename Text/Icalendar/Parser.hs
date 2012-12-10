@@ -1,7 +1,5 @@
 module Text.Icalendar.Parser (
     vcalendar
-  , begin
-  , end
   ) where
 
 
